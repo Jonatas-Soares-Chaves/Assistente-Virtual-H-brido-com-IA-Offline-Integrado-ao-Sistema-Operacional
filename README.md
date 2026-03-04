@@ -1,0 +1,2 @@
+# Assistente-Virtual-H-brido-com-IA-Offline-Integrado-ao-Sistema-Operacional
+Este projeto consiste no desenvolvimento de um Assistente Virtual Híbrido com Inteligência Artificial, projetado para funcionar offline e integrado diretamente ao sistema operacional. O aplicativo foi desenvolvido em Python 3 e utiliza modelos de linguagem executados localmente para oferecer respostas inteligentes e executar comandos no computador.
