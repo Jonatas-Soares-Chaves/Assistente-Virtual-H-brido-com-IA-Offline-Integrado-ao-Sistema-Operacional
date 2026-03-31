@@ -4,7 +4,6 @@ import subprocess
 import requests
 from datetime import datetime
 
-# Pastas onde o Windows guarda atalhos de programas
 PASTAS_MENU_INICIAR = [
     os.path.join(os.environ["PROGRAMDATA"], r"Microsoft\Windows\Start Menu\Programs"),
     os.path.join(os.environ["APPDATA"], r"Microsoft\Windows\Start Menu\Programs")
@@ -29,7 +28,6 @@ def executar_comando(texto):
 
     texto = texto.lower().strip()
 
-    # 🔹 ABRIR PROGRAMA
     if texto.startswith("abrir "):
 
         nome_programa = texto.replace("abrir ", "").strip()
@@ -40,24 +38,20 @@ def executar_comando(texto):
             os.startfile(caminho)
             return f"Abrindo {nome_programa}..."
 
-        # tentativa direta
         try:
             subprocess.Popen(nome_programa)
             return f"Tentando abrir {nome_programa}..."
         except:
             return f"Não encontrei o programa {nome_programa}."
 
-    # 🔹 HORA
     if "hora" in texto:
         agora = datetime.now().strftime("%H:%M:%S")
         return f"Agora são {agora}"
 
-    # 🔹 DATA
     if "data" in texto or "dia" in texto:
         hoje = datetime.now().strftime("%d/%m/%Y")
         return f"Hoje é {hoje}"
 
-    # 🔹 CALCULADORA
     if "calcular" in texto:
         try:
             conta = texto.replace("calcular", "").strip()
@@ -66,7 +60,6 @@ def executar_comando(texto):
         except:
             return "Não consegui calcular."
 
-    # 🔹 PESQUISAR NO GOOGLE
     if "pesquisar" in texto or "pesquisa" in texto:
 
         busca = (
@@ -81,7 +74,6 @@ def executar_comando(texto):
             webbrowser.open(url)
             return f"Abrindo resultados no Google para: {busca}"
 
-    # 🔹 CLIMA (usa API pública wttr.in)
     if "clima" in texto:
         try:
             cidade = texto.replace("clima", "").strip()
@@ -95,7 +87,6 @@ def executar_comando(texto):
         except:
             return "Não consegui obter o clima."
 
-    # 🔹 EXECUTAR COMANDO DO WINDOWS
     if texto.startswith("executar "):
 
         comando = texto.replace("executar", "").strip()
