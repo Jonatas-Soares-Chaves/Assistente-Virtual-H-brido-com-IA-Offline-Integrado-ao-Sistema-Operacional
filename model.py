@@ -32,7 +32,6 @@ class ChatBotLocal:
 
         self.messages.append({"role": "assistant", "content": resposta})
 
-        # mantém histórico pequeno (mais rápido)
         self.messages = self.messages[-6:]
 
         return resposta
@@ -40,7 +39,7 @@ class ChatBotLocal:
 
     def responder_stream(self, mensagem):
         """
-        Resposta em tempo real (stream)
+        Resposta real (stream)
         """
 
         self.messages.append({"role": "user", "content": mensagem})
