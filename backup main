@@ -3,18 +3,14 @@ from model import ChatBotLocal
 from assistente_sistema import executar_comando
 import style
 
-# Inicializa bot
 bot = ChatBotLocal()
 
-# Configura tema
 style.configurar_tema()
 
-# Cria a janela principal
 app = ctk.CTk()
 app.title("Mahnrattan IA")
 app.geometry("500x550")
 
-# Título
 titulo = ctk.CTkLabel(
     app, 
     text="Mahnrattan IA",
@@ -22,7 +18,6 @@ titulo = ctk.CTkLabel(
 )
 titulo.pack(pady=10)
 
-# Caixa de chat
 chatbox = ctk.CTkTextbox(
     app,
     width=470,
@@ -31,25 +26,19 @@ chatbox = ctk.CTkTextbox(
 )
 chatbox.pack(pady=10)
 
-# Frame de envio
 frame_envio = ctk.CTkFrame(app)
 frame_envio.pack(pady=10)
 
-# Função para enviar mensagem
 import re
 
 def formatar_resposta(texto):
 
-    # Remove espaços extras
     texto = texto.strip()
 
-    # 🔹 Organiza listas numeradas
     texto = re.sub(r'\n(\d+\.)', r'\n\n\1', texto)
 
-    # 🔹 Organiza listas com hífen
     texto = re.sub(r'\n(- )', r'\n\n\1', texto)
 
-    # 🔹 Remove múltiplas quebras de linha
     texto = re.sub(r'\n{3,}', '\n\n', texto)
 
     return texto
@@ -61,11 +50,9 @@ def enviar_mensagem(event=None):
 
     entrada.delete(0, "end")
 
-    # Mostra usuário
     chatbox.insert("end", f"Você: {user_text}\n")
     chatbox.see("end")
 
-    # 🔥 Verifica se é comando do sistema
     resposta_sistema = executar_comando(user_text)
 
     if resposta_sistema:
@@ -73,7 +60,6 @@ def enviar_mensagem(event=None):
         chatbox.see("end")
         return
 
-    # 🔹 Se não for comando, chama modelo
     def resposta_bot():
 
         resposta_completa = ""  # ← AQUI é onde ela deve nascer
@@ -89,7 +75,6 @@ def enviar_mensagem(event=None):
     import threading
     threading.Thread(target=resposta_bot, daemon=True).start()
 
-# Entrada de texto
 entrada = ctk.CTkEntry(
     frame_envio,
     placeholder_text="Digite sua mensagem...",
@@ -98,7 +83,6 @@ entrada = ctk.CTkEntry(
 entrada.pack(side="left", pady=5)
 entrada.bind("<Return>", enviar_mensagem)  # captura Enter
 
-# Botão enviar
 botao = ctk.CTkButton(
     frame_envio,
     text="Enviar",
@@ -107,5 +91,4 @@ botao = ctk.CTkButton(
 )
 botao.pack(side="left", pady=5)
 
-# Inicia app
 app.mainloop()
